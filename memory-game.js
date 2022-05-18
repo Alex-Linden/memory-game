@@ -2,7 +2,8 @@
 
 /** Memory game: find matching pairs of cards and flip both of them. */
 let score = 0;
-let scoreVal = document.getElementById('score')
+const scoreVal = document.getElementById('score')
+const newGame = document.getElementById('new-game')
 
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
@@ -43,6 +44,7 @@ function shuffle(items) {
 
 function createCards(colors) {
   const gameBoard = document.getElementById("game");
+  scoreVal.innerHTML = score
 
   for (let color of colors) {
     // missing code here ...
@@ -76,4 +78,3 @@ function handleCardClick(evt) {
   score ++
   scoreVal.innerHTML = score
 }
-
