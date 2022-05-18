@@ -1,6 +1,9 @@
 "use strict";
 
 /** Memory game: find matching pairs of cards and flip both of them. */
+let score = 0;
+let scoreVal = document.getElementById('score')
+
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
 const COLORS = [
@@ -43,6 +46,13 @@ function createCards(colors) {
 
   for (let color of colors) {
     // missing code here ...
+    let newCard = document.createElement('div');
+    newCard.className = 'card';
+    newCard.style.backgroundColor = color;
+
+    newCard.addEventListener('click', handleCardClick)
+
+    gameBoard.appendChild(newCard)
   }
 }
 
@@ -62,4 +72,8 @@ function unFlipCard(card) {
 
 function handleCardClick(evt) {
   // ... you need to write this ...
+  console.log('click')
+  score ++
+  scoreVal.innerHTML = score
 }
+
