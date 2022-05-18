@@ -55,7 +55,7 @@ function createCards(colors) {
     newCard.className = 'card';
     newCard.style.backgroundColor = 'white';
     newCard.Color = color
-    //newCard.id = 'unflipped'
+    newCard.status = 'unflipped'
 
     newCard.addEventListener('click', handleCardClick)
 
@@ -67,8 +67,9 @@ function createCards(colors) {
 
 function flipCard(card) {
   // ... you need to write this ...
-  card.style.backgroundColor = card.Color
-  console.log('flip')
+  card.style.backgroundColor = card.Color;
+  card.status = 'flipped';
+  console.log('flip', card.status)
 
 }
 
@@ -77,22 +78,26 @@ function flipCard(card) {
 function unFlipCard(card) {
   // ... you need to write this ...
   card.style.backgroundColor = 'white';
-  console.log('unflip')
+  card.status = 'unflipped'
+  console.log('unflip', card.status)
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 function handleCardClick(evt) {
   // ... you need to write this ...
-  console.log('click')
+  //console.log('click')
   let firstCard = evt.currentTarget
   score ++
   scoreVal.innerHTML = score
-
+  if(firstCard.status === 'flipped'){
+    console.log('already flipped')
+  }else{
   flipCard(firstCard);
   setTimeout(function(){
     unFlipCard(firstCard);
-  }, 1000);
+  }, 2000);
+  }
 
 
 
