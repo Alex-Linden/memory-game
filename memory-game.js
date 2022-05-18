@@ -2,8 +2,11 @@
 
 /** Memory game: find matching pairs of cards and flip both of them. */
 let score = 0;
-const scoreVal = document.getElementById('score')
-const newGame = document.getElementById('new-game')
+const scoreVal = document.getElementById('score');
+const newGame = document.getElementById('new-game');
+//let highScore = localStorage.getItem('highscore');
+//const highScoreVal = document.getElementById('high-score');
+// high score needs to be lowest score. determined after game
 
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
@@ -50,7 +53,9 @@ function createCards(colors) {
     // missing code here ...
     let newCard = document.createElement('div');
     newCard.className = 'card';
-    newCard.style.backgroundColor = color;
+    newCard.style.backgroundColor = 'white';
+    newCard.Color = color
+    //newCard.id = 'unflipped'
 
     newCard.addEventListener('click', handleCardClick)
 
@@ -62,12 +67,17 @@ function createCards(colors) {
 
 function flipCard(card) {
   // ... you need to write this ...
+  card.style.backgroundColor = card.Color
+  console.log('flip')
+
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
   // ... you need to write this ...
+  card.style.backgroundColor = 'white';
+  console.log('unflip')
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
@@ -77,4 +87,13 @@ function handleCardClick(evt) {
   console.log('click')
   score ++
   scoreVal.innerHTML = score
+
+  flipCard(evt.currentTarget);
+  setTimeout(function(){
+    unFlipCard(evt.currentTarget);
+  }, 1000);
+
+
+
+  // will need to adjust score counter to happen after both clicks
 }
