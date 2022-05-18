@@ -85,12 +85,13 @@ function unFlipCard(card) {
 function handleCardClick(evt) {
   // ... you need to write this ...
   console.log('click')
+  let firstCard = evt.currentTarget
   score ++
   scoreVal.innerHTML = score
 
-  flipCard(evt.currentTarget);
+  flipCard(firstCard);
   setTimeout(function(){
-    unFlipCard(evt.currentTarget);
+    unFlipCard(firstCard);
   }, 1000);
 
 
