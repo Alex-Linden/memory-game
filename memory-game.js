@@ -95,7 +95,10 @@ function resetGuess(){
 function handleCardClick(evt) {
   // ... you need to write this ...
   // need to set up condition to prevent more than 2 guesses
-  let pick = evt.currentTarget
+  let pick;
+  if(guess.length < 2){
+  pick = evt.currentTarget;
+  }
   if(pick.status === 'flipped'){
     console.log('already flipped')
   }else if (pick.status === 'unflipped'){
