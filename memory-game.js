@@ -21,7 +21,12 @@ const colors = shuffle(COLORS);
 
 createCards(colors);
 
-
+newGame.addEventListener('click', function(){
+  createCards(colors);
+  matches = [];
+  score = 0;
+  console.log('new Game')
+})
 /** Shuffle array items in-place and return shuffled array. */
 
 function shuffle(items) {
@@ -94,7 +99,6 @@ function resetGuess(){
 
 function handleCardClick(evt) {
   // ... you need to write this ...
-  // need to set up condition to prevent more than 2 guesses
   let pick;
   if(guess.length < 2){
   pick = evt.currentTarget;
