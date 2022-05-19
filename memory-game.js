@@ -4,10 +4,12 @@
 let score = 0;
 const scoreVal = document.getElementById('score');
 const newGame = document.getElementById('new-game');
-//let highScore = localStorage.getItem('highscore');
+let highScore = Infinity;
 //const highScoreVal = document.getElementById('high-score');
 // high score needs to be lowest score. determined after game
 
+let guess = [];
+let matches = [];
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
 const COLORS = [
@@ -56,6 +58,7 @@ function createCards(colors) {
     newCard.style.backgroundColor = 'white';
     newCard.Color = color
     newCard.status = 'unflipped'
+    newCard.innerHTML = color
 
     newCard.addEventListener('click', handleCardClick)
 
@@ -84,22 +87,56 @@ function unFlipCard(card) {
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
+function resetGuess(){
+  guess = [];
+}
+
+
 function handleCardClick(evt) {
   // ... you need to write this ...
-  //console.log('click')
-  let firstCard = evt.currentTarget
-  score ++
-  scoreVal.innerHTML = score
-  if(firstCard.status === 'flipped'){
+  // need to set up condition to prevent more than 2 guesses
+  let pick = evt.currentTarget
+  if(pick.status === 'flipped'){
     console.log('already flipped')
-  }else{
-  flipCard(firstCard);
-  setTimeout(function(){
+  }else if (pick.status === 'unflipped'){
+    flipCard(pick);
+    guess.push(pick);
+    if(guess.length === 2){
+      if(guess[0].Color === guess[1].Color){
+        console.log('its a match')
+        matches.push(guess[0]);
+        matches.push(guess[1])
+        score ++;
+        scoreVal.innerHTML = score;
+        guess = [];
+      } else{
+        console.log('try again')
+        setTimeout(function(){
+          unFlipCard(guess[0]);
+          unFlipCard(guess[1]);
+          resetGuess();
+        }, 2000);
+        score ++;
+        scoreVal.innerHTML = score;
+      }
+    }
+ /*  setTimeout(function(){
     unFlipCard(firstCard);
-  }, 2000);
+  }, 2000); */
   }
 
 
+  /* score ++
+  scoreVal.innerHTML = score */
+
 
   // will need to adjust score counter to happen after both clicks
+}
+
+if(matches.length === COLORS.length){
+  alert('You Won')
+  /* if(score < highScore){
+    highScore = score;
+    need to use localStorage
+  } */
 }
