@@ -74,7 +74,6 @@ function createCards(colors) {
     newCard.style.backgroundColor = 'white';
     newCard.Color = color
     newCard.status = 'unflipped'
-    newCard.innerHTML = color
 
     newCard.addEventListener('click', handleCardClick)
 
@@ -127,12 +126,7 @@ function handleCardClick(evt) {
         score ++;
         scoreVal.innerHTML = score;
         guess = [];
-        if(matches.length === COLORS.length){
-          setTimeout(function(){
-            alert('Congrats!');
-            highScoreCheck();
-          }, 500)
-        }
+
       } else{
         console.log('try again')
         setTimeout(function(){
@@ -146,14 +140,19 @@ function handleCardClick(evt) {
     }
   }
 
-
+  if(matches.length === COLORS.length){
+    setTimeout(function(){
+      alert('Congrats!');
+      highScoreCheck();
+    }, 500)
+  }
 
   // will need to adjust score counter to happen after both clicks
 }
 
 function highScoreCheck(){
   if(highScore !== null){
-    if (score > highScore) {
+    if (score < highScore) {
         localStorage.setItem("highscore", score);
     }
     }else{
@@ -161,4 +160,6 @@ function highScoreCheck(){
   }
   highScoreVal.innerHTML = highScore;
 }
+
+highScoreCheck()
 
