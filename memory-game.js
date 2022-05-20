@@ -4,7 +4,11 @@
 let score = 0;
 const scoreVal = document.getElementById('score');
 const newGame = document.getElementById('new-game');
-let highScore = Infinity;
+let highScore = localStorage.getItem("highscore")
+const highScoreVal = document.getElementById('highScore');
+/* const qImg = document.createElement('img');
+qImg.src = 'question-mark.png' */
+
 //const highScoreVal = document.getElementById('high-score');
 // high score needs to be lowest score. determined after game
 
@@ -22,11 +26,12 @@ const colors = shuffle(COLORS);
 createCards(colors);
 
 newGame.addEventListener('click', function(){
+  shuffle(COLORS)
   createCards(colors);
-  matches = [];
-  score = 0;
   console.log('new Game')
 })
+// new game creats a new board, needs to reset board,
+//doesn't reset the score
 /** Shuffle array items in-place and return shuffled array. */
 
 function shuffle(items) {
@@ -54,6 +59,12 @@ function shuffle(items) {
 
 function createCards(colors) {
   const gameBoard = document.getElementById("game");
+
+  while(gameBoard.firstChild) {
+    gameBoard.removeChild(gameBoard.firstChild)
+  }
+  matches = [];
+  score = 0;
   scoreVal.innerHTML = score
 
   for (let color of colors) {
@@ -116,34 +127,38 @@ function handleCardClick(evt) {
         score ++;
         scoreVal.innerHTML = score;
         guess = [];
+        if(matches.length === COLORS.length){
+          setTimeout(function(){
+            alert('Congrats!');
+            highScoreCheck();
+          }, 500)
+        }
       } else{
         console.log('try again')
         setTimeout(function(){
           unFlipCard(guess[0]);
           unFlipCard(guess[1]);
           resetGuess();
-        }, 2000);
+        }, 500);
         score ++;
         scoreVal.innerHTML = score;
       }
     }
- /*  setTimeout(function(){
-    unFlipCard(firstCard);
-  }, 2000); */
   }
 
-
-  /* score ++
-  scoreVal.innerHTML = score */
 
 
   // will need to adjust score counter to happen after both clicks
 }
 
-if(matches.length === COLORS.length){
-  alert('You Won')
-  /* if(score < highScore){
-    highScore = score;
-    need to use localStorage
-  } */
+function highScoreCheck(){
+  if(highScore !== null){
+    if (score > highScore) {
+        localStorage.setItem("highscore", score);
+    }
+    }else{
+    localStorage.setItem("highscore", score);
+  }
+  highScoreVal.innerHTML = highScore;
 }
+
