@@ -133,7 +133,7 @@ function handleCardClick(evt) {
           unFlipCard(guess[0]);
           unFlipCard(guess[1]);
           resetGuess();
-        }, 500);
+        }, 1000);
         score ++;
         scoreVal.innerHTML = score;
       }
